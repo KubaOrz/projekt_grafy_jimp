@@ -7,6 +7,6 @@ typedef struct edge{
     double w;
 }edge_t;
 
-int get_size(edge_t *tab)
+//int get_size(edge_t **tab);
 
 #endif
