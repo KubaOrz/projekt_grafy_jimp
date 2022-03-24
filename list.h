@@ -10,7 +10,9 @@ typedef struct list{
     struct list *next;
 }*list_t;
 
+
 void push(list_t head, int node, double w);
 void printlist(list_t head);
+
 
 #endif

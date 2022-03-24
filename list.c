@@ -12,7 +12,6 @@ void push(list_t head, int node, double w){
     curent->next->node = node;
     curent->next->w = w;
     curent->next->next = NULL;
-    free(curent);
 }
 
 
@@ -20,8 +19,8 @@ void printlist(list_t head){
     list_t curent = malloc(sizeof(curent));
     curent = head;
     while(curent->next != NULL){
-        printf("%d: %f", curent->next->node, curent->next->w);
+        printf("%d: %f ", curent->next->node, curent->next->w);
         curent = curent->next;
     }
-    free(curent);
+    printf("\n");
 }

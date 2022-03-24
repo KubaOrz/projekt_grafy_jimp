@@ -1,26 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "files.h"
-#include "edge.h"
+#include "list.h"
 
-void save(edge_t **edges, char *filename, int c, int w){
+
+list_t *read(char *filename){
     FILE *fp;
-    if ((fp=fopen(filename, "w"))==NULL) {
+    int c, w;
+    if ((fp=fopen(filename, "r"))==NULL) {
         printf ("Nie mogę otworzyć pliku do zapisu!\n");
         exit(1);
     }
-    fprintf(fp,"%d %d\n", c, w );
-    edge_t *pom;
-    pom = edges[0];
-    printf("%d\n", &pom);
-    for(int i = 0; i < c*w; i++){
-        printf("%d\n", &pom);
-        while(i == pom->snode){
-            fprintf(fp, "%d : %f ", pom->fnode, pom->w);
-            pom++;
+    fscanf(fp, "%d %d", &w,&c);
+    list_t *nodes = malloc(c*w*sizeof(nodes));
+    int test[8];
+    int ca;
+    int node;
+    double weight;
+    for(int i = 0; i<c*w; i++){
+        fscanf(fp, "%d :%lf", &node, &weight);
+        list_t p = malloc(sizeof(p));
+        push(p, node, weight);
+        while(ca = fgetc(fp)){
+            if (ca == 32){
+                fscanf(fp, "%d :%lf", &node, &weight);
+                push(p, node, weight);
+            }
+            if(ca == 10 || ca == EOF){
+                break;
+            }
         }
-        fprintf(fp,"\n");
-        pom++;
-    }// z jakiegoś powodu nie działa przesuwanie wskaźnika
- }
-
+        nodes[i] = p;
+    }
+    return nodes;
+}
