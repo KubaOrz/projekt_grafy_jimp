@@ -7,13 +7,17 @@
 list_t *read(char *filename){
     FILE *fp;
     int c, w;
+    char *line = malloc(4);
     if ((fp=fopen(filename, "r"))==NULL) {
-        printf ("Nie mogę otworzyć pliku do zapisu!\n");
+        fprintf(stdout,"FILE_ERROR\n");
         exit(1);
     }
-    fscanf(fp, "%d %d", &w,&c);
+    fgets(line, 4, fp);
+    if(sscanf(line, "%d %d", &w,&c) != 2){
+        fprintf(stdout,"IMPUT_FORMAT_ERROR\n");
+        exit(1);
+    }
     list_t *nodes = malloc(c*w*sizeof(nodes));
-    int test[8];
     int ca;
     int node;
     double weight;
