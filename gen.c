@@ -2,65 +2,61 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "edge.h"
 #include "files.h"
 #include "gen.h"
+#include "error.h"
 
-int generate (edge_t *edges, int rows, int cols, double from, double to) {
+void generate (char *filename, int rows, int cols, double from, double to) {
     srand(time(NULL));
+
+    FILE *out;
+    if ((out = fopen(filename, "w")) == NULL) {
+        printf ("FILE_ERROR\n");
+        exit(FILE_ERROR);
+    }
 
     int edgeCount = 0, observed = 0;
     ifEdge_t *topEdges = malloc(cols * sizeof * topEdges);
     ifEdge_t leftEdge = {0, 0};
 
+    fprintf(out, "%d %d\n", rows, cols);
+
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             observed = cols * i + j;
-            
+            fprintf(out, "\t");
             if (i != 0 && topEdges[j].exists) {
-                edges[edgeCount].snode = observed;
-                edges[edgeCount].fnode = observed - cols;
-                edges[edgeCount].w = topEdges[j].value;
-                //printf("%d --> %d: %lf\n", edges[edgeCount].snode, edges[edgeCount].fnode, edges[edgeCount].w);
+                fprintf(out, "%d: %lf ", observed - cols, topEdges[j].value);
                 edgeCount++;
             }
             if (j != 0 && leftEdge.exists) {
-                edges[edgeCount].snode = observed;
-                edges[edgeCount].fnode = observed - 1;
-                edges[edgeCount].w = leftEdge.value;
-                //printf("%d --> %d: %lf\n", edges[edgeCount].snode, edges[edgeCount].fnode, edges[edgeCount].w);
+                fprintf(out, "%d: %lf ", observed - 1, leftEdge.value);
                 edgeCount++;
             }
 
             if (rand() % 2 == 1) {
                 leftEdge.exists = 1;
-                leftEdge.value = (double)rand() / RAND_MAX;
+                leftEdge.value = from + (double)rand() / RAND_MAX * (to - from);
             }
             else
                 leftEdge.exists = 0;
 
             if (rand() % 2 == 1) {
                 topEdges[j].exists = 1;
-                topEdges[j].value = (double)rand() / RAND_MAX;
+                topEdges[j].value = from + (double)rand() / RAND_MAX * (to - from);
             }
             else
                 topEdges[j].exists = 0;
 
             if (j != cols - 1 && leftEdge.exists) {
-                edges[edgeCount].snode = observed;
-                edges[edgeCount].fnode = observed + 1;
-                edges[edgeCount].w = leftEdge.value;
-                //printf("%d --> %d: %lf\n", edges[edgeCount].snode, edges[edgeCount].fnode, edges[edgeCount].w);
+                fprintf(out, "%d: %lf ", observed + 1, leftEdge.value);
                 edgeCount++;
             }
             if (i != rows - 1 && topEdges[j].exists) {
-                edges[edgeCount].snode = observed;
-                edges[edgeCount].fnode = observed + cols;
-                edges[edgeCount].w = topEdges[j].value;
-                //printf("%d --> %d: %lf\n", edges[edgeCount].snode, edges[edgeCount].fnode, edges[edgeCount].w);
+                fprintf(out, "%d: %lf ", observed + cols, topEdges[j].value);
                 edgeCount++;
             }
+            fprintf(out, "\n");
         }
     }
-    return edgeCount;
 }
