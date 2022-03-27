@@ -5,7 +5,7 @@
 #include "list.h"
 #include "bfs.h"
 
-int bfs(list_t nodes, int start) {
+int bfs(list_t *nodes, int start) {
     int size = 9;
     int u, v;
     color_t *results = malloc(size * sizeof *results); // musi być jakoś przekazana ilość wierzchołków
@@ -35,4 +35,10 @@ int bfs(list_t nodes, int start) {
         }
         results[u].color = 2;
     }
+
+    for (int i = 0; i < size; i++) {
+        if (results[i].color != 2)
+            return 0;
+    }
+    return 1;
 }

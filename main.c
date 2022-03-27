@@ -6,6 +6,7 @@
 #include "files.h"
 #include "gen.h"
 #include "error.h"
+#include "bfs.h"
 
 #define FILE_LEN 30
 
@@ -21,6 +22,9 @@ int main(int argc, char **argv){
     if (argc == 2) {
         // Odpalamy read i BFS
         printf("Odpalam BFS\n");
+        list_t *list = malloc(9 * sizeof *list);
+        list = read(filename);
+        bfs(list, 0);
         return 0;
     }
 
