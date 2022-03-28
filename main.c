@@ -24,7 +24,10 @@ int main(int argc, char **argv){
         printf("Odpalam BFS\n");
         list_t *list = malloc(9 * sizeof *list);
         list = read(filename);
-        bfs(list, 0);
+        if (bfs(list, 0))
+            printf("Graf jest spójny\n");
+        else
+            printf("Graf nie jest spojny\n");
         return 0;
     }
 

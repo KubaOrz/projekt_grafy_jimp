@@ -32,8 +32,10 @@ int bfs(list_t *nodes, int start) {
                 results[it -> node].parent = u;
                 pushQ(head, it -> node);
             }
+            it = it -> next;
         }
         results[u].color = 2;
+        head = head -> next;
     }
 
     for (int i = 0; i < size; i++) {
