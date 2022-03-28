@@ -25,7 +25,7 @@ void printpq(pq_t pq);
 void del(pq_t pq, int num);
 int isEmpty(pq_t pq);
 hn_t getMin(pq_t pq);
-void dijkstra(list_t graph, int src, int size);
+
 
 
 #endif
