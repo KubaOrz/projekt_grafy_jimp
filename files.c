@@ -4,7 +4,7 @@
 #include "list.h"
 
 
-list_t *read(char *filename){
+list_t *read(char *filename, int *size){
     FILE *fp;
     int c, w;
     char *line = malloc(4);
@@ -17,6 +17,7 @@ list_t *read(char *filename){
         fprintf(stdout,"IMPUT_FORMAT_ERROR\n");
         exit(1);
     }
+    *size = c*w;
     list_t *nodes = malloc(c*w*sizeof(nodes));
     int ca;
     int node;
