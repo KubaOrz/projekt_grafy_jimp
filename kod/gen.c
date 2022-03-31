@@ -34,14 +34,14 @@ void generate (char *filename, int rows, int cols, double from, double to) {
                 edgeCount++;
             }
 
-            if (rand() % 2 == 1) {
+            if (rand() % 4 > 1) {
                 leftEdge.exists = 1;
                 leftEdge.value = from + (double)rand() / RAND_MAX * (to - from);
             }
             else
                 leftEdge.exists = 0;
 
-            if (rand() % 2 == 1) {
+            if (rand() % 4 > 1) {
                 topEdges[j].exists = 1;
                 topEdges[j].value = from + (double)rand() / RAND_MAX * (to - from);
             }

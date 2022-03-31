@@ -9,6 +9,6 @@ typedef struct color {
     int parent;
 } color_t;
 
-int bfs(list_t *nodes, int start); // Zwraca 1 jeśli graf jest spójny i 0 jeśli nie jest
+int bfs(list_t *nodes, int start, int size); // Zwraca 1 jeśli graf jest spójny i 0 jeśli nie jest
 
 #endif
