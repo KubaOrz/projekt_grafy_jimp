@@ -17,18 +17,25 @@ list_t *read(char *filename, int *size){
         fprintf(stdout,"IMPUT_FORMAT_ERROR\n");
         exit(1);
     }
+    //sprawdzanie poprawności wejścia, ergo czy format danych w pliku jest zbazowany
     *size = c*w;
     list_t *nodes = malloc(c*w*sizeof(nodes));
     int ca;
     int node;
     double weight;
     for(int i = 0; i<c*w; i++){
-        fscanf(fp, "%d :%lf", &node, &weight);
+        if(fscanf(fp, "%d :%lf", &node, &weight) != 2){
+            fprintf(stdout,"IMPUT_FORMAT_ERROR\n");
+            exit(1);
+        }
         list_t p = malloc(sizeof(p));
         push(p, node, weight);
         while(ca = fgetc(fp)){
             if (ca == 32){
-                fscanf(fp, "%d :%lf", &node, &weight);
+                if(fscanf(fp, "%d :%lf", &node, &weight) != 2){
+                    fprintf(stdout,"IMPUT_FORMAT_ERROR\n");
+                    exit(1);
+                }
                 push(p, node, weight);
             }
             if(ca == 10 || ca == EOF){

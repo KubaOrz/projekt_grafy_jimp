@@ -6,15 +6,16 @@
 #include "list.h"
 #include "files.h"
 
-typedef struct heapNode{
-    double weigth;
-    int val;
+typedef struct heapNode{ //elementy stosu
+    double weigth; //waga połączenia
+    int val; //numer wierzchołka docelowego
 }*hn_t;
 
 typedef struct pq{
     hn_t *q; //lista
     int n; //licza węzłow w liście (obecnie)
     int s; //rozmiar
+    int *pos;
 }*pq_t;
 
 pq_t init(int s);
@@ -25,7 +26,9 @@ void printpq(pq_t pq);
 void del(pq_t pq, int num);
 int isEmpty(pq_t pq);
 hn_t getMin(pq_t pq);
-
+void decreseKey(pq_t pq, int val, double weigth); //ciekawe czy da się zrobić żeby bez tego działało
+int isInPQ(pq_t pq, int val);//ciekawe czy da się zrobić żeby bez tego działało
+void dijkstra(int src, list_t *graf, int size);
 
 
 #endif
