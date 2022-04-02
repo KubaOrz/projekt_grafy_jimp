@@ -11,20 +11,27 @@
 #define FILE_LEN 30
 
 int main(int argc, char **argv){  
-    if (argc == 1 || argc == 3 || argc == 6 || argc == 7 || argc > 8) {
+    if (argc == 3 || argc == 6 || argc == 7 || argc > 8) {
        fprintf(stderr, "ARG_ERROR\n");
        exit(ARG_ERROR);
     }
+    
+    const char *flags[4] = {"-d", "-g", "-w", "-h"};
+
+    if (argc == 1 || (argc == 2 && strcmp(argv[1], flags[3]) == 0)) {
+        printHelp();
+        return 0;
+    }
+
     char filename[FILE_LEN];
     strcpy(filename, argv[1]);
-    const char *flags[3] = {"-d", "-g", "-w"};
 
     if (argc == 2) {
         // Odpalamy read i BFS
         printf("Odpalam BFS\n");
-        list_t *list = malloc(9 * sizeof *list);
-        list = read(filename);
-        if (bfs(list, 0))
+        int c, w;
+        list_t *list = read(filename, &c, &w);
+        if (bfs(list, 0, c * w))
             printf("Graf jest spójny\n");
         else
             printf("Graf nie jest spojny\n");

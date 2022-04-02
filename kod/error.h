@@ -11,4 +11,6 @@ enum error{
 
 int isNum(char *s);
 
+void printHelp();
+
 #endif
