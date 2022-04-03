@@ -6,4 +6,5 @@
 
 list_t *read(char *filename, int *size);
 
+
 #endif
