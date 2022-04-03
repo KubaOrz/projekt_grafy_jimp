@@ -37,8 +37,9 @@ int bfs(list_t *nodes, int start, int size) {
     }
 
     for (int i = 0; i < size; i++) {
-        if (results[i].color != 2)
-            return 0;
+        printf("%d ", results[i].color);
+        /*if (results[i].color != 2)
+            return 0;*/
     }
     return 1;
 }

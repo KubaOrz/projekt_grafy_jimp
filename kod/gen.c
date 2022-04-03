@@ -51,7 +51,7 @@ void generate (char *filename, int rows, int cols, double from, double to, int d
                 topEdges[j].exists = 0;
 
             if (j != cols - 1 && leftEdge.exists) {
-                if (i != 0)
+                if (j + i != 0)
                     fprintf(out, " ");
                 fprintf(out, "%d: %lf", observed + 1, leftEdge.value);
                 edgeCount++;
