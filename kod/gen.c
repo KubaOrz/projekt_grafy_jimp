@@ -6,7 +6,7 @@
 #include "gen.h"
 #include "error.h"
 
-void generate (char *filename, int rows, int cols, double from, double to) {
+void generate (char *filename, int rows, int cols, double from, double to, int density) {
     srand(time(NULL));
 
     FILE *out;
@@ -26,22 +26,24 @@ void generate (char *filename, int rows, int cols, double from, double to) {
             observed = cols * i + j;
             fprintf(out, "\t");
             if (i != 0 && topEdges[j].exists) {
-                fprintf(out, "%d: %lf ", observed - cols, topEdges[j].value);
+                fprintf(out, "%d: %lf", observed - cols, topEdges[j].value);
                 edgeCount++;
             }
             if (j != 0 && leftEdge.exists) {
-                fprintf(out, "%d: %lf ", observed - 1, leftEdge.value);
+                if (topEdges[j].exists)
+                    fprintf(out, " ");
+                fprintf(out, "%d: %lf", observed - 1, leftEdge.value);
                 edgeCount++;
             }
 
-            if (rand() % 4 > 1) {
+            if (rand() % 4 > density) {
                 leftEdge.exists = 1;
                 leftEdge.value = from + (double)rand() / RAND_MAX * (to - from);
             }
             else
                 leftEdge.exists = 0;
 
-            if (rand() % 4 > 1) {
+            if (rand() % 4 > density) {
                 topEdges[j].exists = 1;
                 topEdges[j].value = from + (double)rand() / RAND_MAX * (to - from);
             }
@@ -49,11 +51,13 @@ void generate (char *filename, int rows, int cols, double from, double to) {
                 topEdges[j].exists = 0;
 
             if (j != cols - 1 && leftEdge.exists) {
-                fprintf(out, "%d: %lf ", observed + 1, leftEdge.value);
+                if (i != 0)
+                    fprintf(out, " ");
+                fprintf(out, "%d: %lf", observed + 1, leftEdge.value);
                 edgeCount++;
             }
             if (i != rows - 1 && topEdges[j].exists) {
-                fprintf(out, "%d: %lf ", observed + cols, topEdges[j].value);
+                fprintf(out, " %d: %lf", observed + cols, topEdges[j].value);
                 edgeCount++;
             }
             fprintf(out, "\n");

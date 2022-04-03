@@ -6,6 +6,6 @@ typedef struct ifEdge {
     int exists;
 } ifEdge_t;
 
-void generate (char *filename, int rows, int cols, double from, double to);
+void generate (char *filename, int rows, int cols, double from, double to, int density);
 
 #endif

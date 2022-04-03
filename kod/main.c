@@ -7,6 +7,7 @@
 #include "gen.h"
 #include "error.h"
 #include "bfs.h"
+#include "pq.h"
 
 #define FILE_LEN 30
 
@@ -29,9 +30,9 @@ int main(int argc, char **argv){
     if (argc == 2) {
         // Odpalamy read i BFS
         printf("Odpalam BFS\n");
-        int c, w;
-        list_t *list = read(filename, &c, &w);
-        if (bfs(list, 0, c * w))
+        int size;
+        list_t *list = read(filename, &size);
+        if (bfs(list, 0, size))
             printf("Graf jest spójny\n");
         else
             printf("Graf nie jest spojny\n");
@@ -48,6 +49,9 @@ int main(int argc, char **argv){
             int snode = atoi(argv[3]);
             // Tu odpalimy read i dijkstrę
             printf("Odpalam dijkstrę\n");
+            int size;
+            list_t *list = read(filename, &size);
+            dijkstra(snode, list, size);
             return 0;
         }
 
@@ -65,7 +69,7 @@ int main(int argc, char **argv){
             int rows = atoi(argv[3]);
             int cols = atoi(argv[4]);
             // Tu odpalimy generację
-            generate(filename, rows, cols, 0, 1);
+            generate(filename, rows, cols, 0, 1, ALL);
             return 0;
         }
 
@@ -85,7 +89,7 @@ int main(int argc, char **argv){
             int w1 = atoi(argv[6]);
             int w2 = atoi(argv[7]);
             // Tu odpalimy generację ze zmienionymi wagami
-            generate(filename, rows, cols, w1, w2);
+            generate(filename, rows, cols, w1, w2, ALL);
             return 0;
         }
 
