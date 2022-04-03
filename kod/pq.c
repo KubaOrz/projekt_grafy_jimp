@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <float.h>
 #include "pq.h"
+#include "bfs.h"
 
 
 pq_t init(int size){
@@ -58,7 +60,7 @@ void add(pq_t pq, int val, double weigth){
 
 void printpq(pq_t pq){
     for(int i = 0; i<pq->n; i++){
-        printf("%d %lf\n", pq->q[i]->val, pq->q[i]->weigth);
+        printf("%d\n", pq->q[i]->val);
     }
 }
 
@@ -94,4 +96,56 @@ hn_t getMin(pq_t pq){
     return root;
 }
 
+void decreseKey(pq_t pq, int val, double weigth){
+    int pos = pq->pos[val];
+    pq->q[pos]->weigth = weigth;
+    while(pos && pq->q[pos]->weigth < pq->q[(pos-1)/2]->weigth){
+        pq->pos[pq->q[pos]->val] = (pos - 1)/2;
+        pq->pos[pq->q[(pos-1)/2]->val] = pos;
+        swap(&pq->q[pos], &pq->q[(pos-1)/2]);
+        pos = (pos - 1)/2;
+    }
+}
+
+int isInPQ(pq_t pq, int val){
+    if(pq->pos[val] < pq->n){
+        return 1;
+    }
+    return 0;
+}
+
+void dijkstra(int src, list_t *graf, int size){
+    if(bfs(graf,src,size) == 0){
+        fprintf(stdout, "GRAPH_ERROR");
+        exit(1);
+    }
+    double *dist = malloc(sizeof(dist)*size);
+    pq_t pq = init(size);
+    //int *isCal = calloc(size,sizeof(isCal)); //is calculated
+    for(int i = 0; i<size; i++){
+        dist[i] = DBL_MAX;
+        add(pq, i, dist[i]);
+        pq->pos[i] = i;
+    }
+
+    add(pq, src, dist[src]);
+    pq->pos[src] = src;
+    dist[src] = 0;
+    decreseKey(pq, src, dist[src]);
+    pq->n = size;
+
+    while(!isEmpty(pq)){
+        hn_t hn = getMin(pq);
+        int u = hn->val;
+        list_t pCrawl = graf[u];
+        while(pCrawl != NULL){
+            int v = pCrawl->node;
+            if(isInPQ(pq,v) && dist[u] != DBL_MAX && pCrawl->w + dist[u]<dist[v]){
+                dist[v] = dist[u] + pCrawl->w;
+                decreseKey(pq, v, dist[v]);
+            }
+            pCrawl = pCrawl->next;
+        }
+    }
+}
 
