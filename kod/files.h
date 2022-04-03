@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include "list.h"
 
-list_t *read(char *filename, int *c, int *w);
+list_t *read(char *filename, int *size);
 
 #endif
