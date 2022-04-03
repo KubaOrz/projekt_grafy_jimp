@@ -24,8 +24,13 @@ list_t *read(char *filename, int *size){
     int node;
     double weight;
     for(int i = 0; i<c*w; i++){
-        if(fscanf(fp, "%d :%lf", &node, &weight) != 2){
-            fprintf(stdout,"IMPUT_FORMAT_ERROR\n");
+        int a;
+        a = fscanf(fp, "%d :%lf", &node, &weight);
+        if(a == -1){
+            break;
+        }
+        if(a !=2){
+            fprintf(stdout,"FILE_INPUT_ERROR\n");
             exit(1);
         }
         list_t p = malloc(sizeof(p));
@@ -33,7 +38,7 @@ list_t *read(char *filename, int *size){
         while(ca = fgetc(fp)){
             if (ca == 32){
                 if(fscanf(fp, "%d :%lf", &node, &weight) != 2){
-                    fprintf(stdout,"IMPUT_FORMAT_ERROR\n");
+                    fprintf(stdout,"FILE_INPUT_ERROR\n");
                     exit(1);
                 }
                 push(p, node, weight);
