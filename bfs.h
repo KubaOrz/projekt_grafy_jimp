@@ -2,6 +2,7 @@
 #define BFS_H
 
 #include "list.h"
+#include "fifo.h"
 
 typedef struct color {
     int color;
