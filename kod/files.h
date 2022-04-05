@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "list.h"
 
-list_t *read(char *filename, int *size);
+graph_t read(char *filename);
 
 
 #endif
