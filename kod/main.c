@@ -30,9 +30,8 @@ int main(int argc, char **argv){
     if (argc == 2) {
         // Odpalamy read i BFS
         printf("Odpalam BFS\n");
-        int size;
-        list_t *list = read(filename, &size);
-        if (bfs(list, 0, size))
+        graph_t graph = read(filename);
+        if (bfs(graph, 0))
             printf("Graf jest spójny\n");
         else
             printf("Graf nie jest spojny\n");
@@ -49,9 +48,8 @@ int main(int argc, char **argv){
             int snode = atoi(argv[3]);
             // Tu odpalimy read i dijkstrę
             printf("Odpalam dijkstrę\n");
-            int size;
-            list_t *list = read(filename, &size);
-            dijkstra(snode, list, size);
+            graph_t graph = read(filename);
+            //dijkstra(snode, graph, size);
             return 0;
         }
 

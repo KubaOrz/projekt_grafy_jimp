@@ -9,13 +9,6 @@ enum error{
     FILE_NAME_REP
 };
 
-enum density {
-    ALL = -1,
-    HIGH,
-    MEDIUM,
-    LOW
-};
-
 int isNum(char *s);
 
 void printHelp();

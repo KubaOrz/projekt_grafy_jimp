@@ -5,8 +5,9 @@
 #include "list.h"
 #include "bfs.h"
 
-int bfs(list_t *nodes, int start, int size) {
+int bfs(graph_t graph, int start) {
     int u, v;
+    int size = graph -> nc * graph -> nr;
     color_t *results = malloc(size * sizeof *results); // musi być jakoś przekazana ilość wierzchołków
     queue_t head = malloc(sizeof *head);
 
@@ -22,8 +23,8 @@ int bfs(list_t *nodes, int start, int size) {
     while(head -> next != NULL) {
         u = first(head);
         pop(head);
-        list_t it = nodes[u];
-        while (it -> next != NULL) {
+        list_t it = graph -> al[u];
+        while (it != NULL) {
             if (results[it -> node].color == 0) {
                 results[it -> node].color = 1;
                 results[it -> node].distance = results[u].distance + 1;
