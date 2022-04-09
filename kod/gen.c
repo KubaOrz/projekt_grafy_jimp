@@ -59,4 +59,5 @@ void generate (char *filename, int rows, int cols, double from, double to, int d
             fprintf(out, "\n");
         }
     }
+    free(topEdges);
 }

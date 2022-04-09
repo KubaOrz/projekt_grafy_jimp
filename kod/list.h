@@ -18,6 +18,7 @@ typedef struct {
 
 void push(list_t head, int node, double w);
 void printlist(list_t head);
+void freeGraph(graph_t graph);
 
 
 #endif
