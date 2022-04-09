@@ -26,13 +26,11 @@ void generate (char *filename, int rows, int cols, double from, double to, int d
             observed = cols * i + j;
             fprintf(out, "\t");
             if (i != 0 && topEdges[j].exists) {
-                fprintf(out, "%d: %lf", observed - cols, topEdges[j].value);
+                fprintf(out, "%d: %lf ", observed - cols, topEdges[j].value);
                 edgeCount++;
             }
             if (j != 0 && leftEdge.exists) {
-                if (topEdges[j].exists)
-                    fprintf(out, " ");
-                fprintf(out, "%d: %lf", observed - 1, leftEdge.value);
+                fprintf(out, "%d: %lf ", observed - 1, leftEdge.value);
                 edgeCount++;
             }
 
@@ -51,13 +49,11 @@ void generate (char *filename, int rows, int cols, double from, double to, int d
                 topEdges[j].exists = 0;
 
             if (j != cols - 1 && leftEdge.exists) {
-                if (i != 0)
-                    fprintf(out, " ");
-                fprintf(out, "%d: %lf", observed + 1, leftEdge.value);
+                fprintf(out, "%d: %lf ", observed + 1, leftEdge.value);
                 edgeCount++;
             }
             if (i != rows - 1 && topEdges[j].exists) {
-                fprintf(out, " %d: %lf", observed + cols, topEdges[j].value);
+                fprintf(out, "%d: %lf ", observed + cols, topEdges[j].value);
                 edgeCount++;
             }
             fprintf(out, "\n");
