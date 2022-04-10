@@ -13,7 +13,7 @@ int isNum(char *s) {
 }
 
 void printHelp() {
-    printf("Wywołanie: ./graf [ścieżka do pliku] flagi i argumenty opcjonalne\n\n");
+    printf("Wywołanie: ./graf ścieżka do pliku flagi i argumenty opcjonalne\n\n");
     printf("Spis flag i argumentów:\n");
     printf("\t%-44s\t%s\n", "-g [ilość wierszy] [ilość kolumn]", "Wygeneruj graf o podanych wymiarach i wagach z przediału (0, 1)");
     printf("\t%-44s\t%s\n", "-g [ilość wierszy] [ilość kolumn] -w [a] [b]", "Wygeneruj graf o podanych wymiarach i wagach z przediału (a, b)");
