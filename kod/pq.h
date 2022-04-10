@@ -15,7 +15,7 @@ typedef struct pq{
     hn_t *q; //lista
     int n; //licza węzłow w liście (obecnie)
     int s; //rozmiar
-    int *pos;
+    int *pos; 
 }*pq_t;
 
 pq_t init(int s);
@@ -28,7 +28,7 @@ int isEmpty(pq_t pq);
 hn_t getMin(pq_t pq);
 void decreseKey(pq_t pq, int val, double weigth); //ciekawe czy da się zrobić żeby bez tego działało
 int isInPQ(pq_t pq, int val);//ciekawe czy da się zrobić żeby bez tego działało
-void dijkstra(int src, list_t *graf, int size);
+void dijkstra(int src, graph_t graph);
 
 
 #endif

@@ -3,11 +3,13 @@
 #include <float.h>
 #include "pq.h"
 #include "bfs.h"
+#include "error.h"
 
 
 pq_t init(int size){
     pq_t pq = malloc(sizeof(pq));
     pq->q = malloc(sizeof(pq->q)* size);
+    pq->pos = malloc(sizeof(pq->pos)* size);
     pq->s = size;
     pq->n = 0;
     return pq;
@@ -22,7 +24,7 @@ void swap(hn_t *a, hn_t *b){
 
 void heapify(pq_t pq, int i){
     if(pq->n == 1){
-        printf("Kopiec ma jeden element");
+        ;
     }
     else{
         int smallest = i;
@@ -35,6 +37,8 @@ void heapify(pq_t pq, int i){
             smallest = r;
         }
         if(smallest != i){
+            pq->pos[pq->q[smallest]->val] = i;
+            pq->pos[pq->q[i]->val] = smallest;
             swap(&pq->q[i], &pq->q[smallest]);
             heapify(pq, smallest);
         }
@@ -79,7 +83,7 @@ void del(pq_t pq, int num){
 }
 
 int isEmpty(pq_t pq){
-    return pq->s == 0;
+    return pq->n == 0;
 }
 
 hn_t getMin(pq_t pq){
@@ -89,9 +93,9 @@ hn_t getMin(pq_t pq){
     hn_t root = malloc(sizeof(root));
     hn_t last = malloc(sizeof(last));
     root = pq->q[0];
-    last = pq->q[pq->s - 1];
+    last = pq->q[pq->n - 1];
     pq->q[0] = last;
-    pq->s -= 1;
+    pq->n -= 1;
     heapify(pq, 0);
     return root;
 }
@@ -114,38 +118,57 @@ int isInPQ(pq_t pq, int val){
     return 0;
 }
 
-void dijkstra(int src, list_t *graf, int size){
-    if(bfs(graf,src,size) == 0){
-        fprintf(stdout, "GRAPH_ERROR");
-        exit(1);
-    }
-    double *dist = malloc(sizeof(dist)*size);
+void dijkstra(int src, graph_t graph){
+    printf("Fakrtyczne odpalenie dijkstry");
+    int size = graph->nc * graph->nr;
+    double *dist = malloc(sizeof(*dist)*size);
+    int *prew = malloc(sizeof(*prew)* size); //talbica poprzednikówa
     pq_t pq = init(size);
-    //int *isCal = calloc(size,sizeof(isCal)); //is calculated
     for(int i = 0; i<size; i++){
         dist[i] = DBL_MAX;
         add(pq, i, dist[i]);
         pq->pos[i] = i;
-    }
-
+        prew[i] = -1;
+    }   
+//kłeszczonejbul
     add(pq, src, dist[src]);
     pq->pos[src] = src;
     dist[src] = 0;
     decreseKey(pq, src, dist[src]);
     pq->n = size;
-
     while(!isEmpty(pq)){
         hn_t hn = getMin(pq);
         int u = hn->val;
-        list_t pCrawl = graf[u];
+        list_t pCrawl = malloc(sizeof *pCrawl);
+        pCrawl = graph->al[u]->next;
         while(pCrawl != NULL){
             int v = pCrawl->node;
-            if(isInPQ(pq,v) && dist[u] != DBL_MAX && pCrawl->w + dist[u]<dist[v]){
+            /*if(pCrawl->w<0){
+                fprintf(stderr,"INPUT_FORMAT_ERROR");
+                exit(INPUT_FORMAT_ERROR);
+            }*/
+            if(isInPQ(pq,v) && dist[u] != DBL_MAX && pCrawl->w + dist[u] < dist[v]){
                 dist[v] = dist[u] + pCrawl->w;
                 decreseKey(pq, v, dist[v]);
+                prew[v] = u;
             }
             pCrawl = pCrawl->next;
         }
     }
+    
+    for(int j= 0; j<size; j++){
+        if(j == src){
+                fprintf(stdout,"Węzeł: %d Węzeł źródłowy  Długość drogi: %lf\n",j, dist[j]);
+                continue;
+            }
+        printf("Węzeł: %d droga: ",j);
+        int k = j;
+        while(prew[prew[k]] != -1){
+            
+            printf("%d - ", prew[k]);
+            k = prew[k];
+        }
+        fprintf(stdout,"%d  Długość drogi: %lf\n",src, dist[j]);
+    }
+    
 }
-
