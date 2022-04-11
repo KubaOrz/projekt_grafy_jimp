@@ -2,19 +2,10 @@ all: main.c files.c list.c bfs.c error.c gen.c dijkstra.c
 	$(CC) -o graf main.c files.c list.c bfs.c error.c gen.c dijkstra.c
 
 test: maintest.c files.c list.c bfs.c error.c gen.c dijkstra.c
-	$(CC) -o test maintest.c files.c list.c bfs.c error.c gen.c dijkstra.c
+	$(CC) -o test maintest.c files.c list.c bfs.c error.c gen.c dijkstra.c -DTEST=1 -ggdb
 
-debug: main.c files.c list.c bfs.c error.c gen.c
-	$(CC) -o debug main.c files.c list.c bfs.c error.c gen.c -ggdb
-
-readtest: mainreadtest.c files.c list.c
-	$(CC) -o readtest mainreadtest.c files.c list.c
-	
-pqtest: pqmain.c pq.c bfs.c list.c
-	$(CC) -o pqtest pqmain.c pq.c bfs.c list.c
-
-bfs: main.c files.c list.c bfs.c error.c gen.c
-	$(CC) -o bfs main.c files.c list.c bfs.c error.c gen.c
+debug: main.c files.c list.c bfs.c error.c gen.c dijkstra.c
+	$(CC) -o debug main.c files.c list.c bfs.c error.c gen.c dijkstra.c -ggdb
 
 clean:
 	rm graf debug test readtest pqtest bfs

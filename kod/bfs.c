@@ -4,20 +4,20 @@
 #include "list.h"
 #include "bfs.h"
 
+#ifndef TEST
+#define TEST 0
+#endif
+
 int bfs(graph_t graph, int start) {
     int u, v;
     int size = graph -> nc * graph -> nr;
-    color_t *results = malloc(size * sizeof *results); // musi być jakoś przekazana ilość wierzchołków
+    color_t *results = malloc(size * sizeof *results);
     queue_t head = malloc(sizeof *head);
 
     for (int i = 0; i < size; i++) {
         results[i].color = 0;
-        results[i].distance = -1; // -1 czyli nieskończoność
-        results[i].parent = -1; // czyli nie ma przodka
     }
     results[start].color = 1; // 0 to biały, 1 to szary, a 2 to czarny
-    results[start].distance = 0;
-    results[start].parent = -1;
     pushQ(head, start);
     while(head -> next != NULL) {
         u = first(head);
@@ -26,8 +26,6 @@ int bfs(graph_t graph, int start) {
         while (it != NULL) {
             if (results[it -> node].color == 0) {
                 results[it -> node].color = 1;
-                results[it -> node].distance = results[u].distance + 1;
-                results[it -> node].parent = u;
                 pushQ(head, it -> node);
             }
             it = it -> next;
@@ -36,15 +34,18 @@ int bfs(graph_t graph, int start) {
         head = head -> next;
     }
 
-    freeGraph(graph);
+    if (!TEST)
+        freeGraph(graph);
 
     for (int i = 0; i < size; i++) {
         if (results[i].color != 2) {
-            free(results);
+            if (!TEST)
+                free(results);
             return 0;
         }
     }
-    free(results);
+    if (!TEST)
+        free(results);
     return 1;
 }
 

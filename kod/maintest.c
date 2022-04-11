@@ -21,7 +21,7 @@ void testDijsktra(char *path){
 
 
 int main(int argc, char ** argv) {
-    /*
+    
     //test BfS 1
     assert(bfs(read("../testy/g1.txt"), 0) == 0);
     printf("Test BFS 1 OK\n\n");
@@ -37,7 +37,7 @@ int main(int argc, char ** argv) {
     //test BFS 4
     assert(bfs(read("../testy/g4.txt"), 0));
     printf("Test BFS 4 OK\n\n");
-    */
+    
     //test czasu Dijkstry 1
     testDijsktra("../testy/100w");
 
@@ -48,7 +48,7 @@ int main(int argc, char ** argv) {
     testDijsktra("../testy/10000w2");
     
     //test czasu Dijkstry 4
-    testDijsktra("../testy/100000w");
+    //testDijsktra("../testy/100000w");
 
     //test czasu Dijkstry 5
     testDijsktra("../testy/10000w3");

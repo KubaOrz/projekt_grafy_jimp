@@ -4,7 +4,11 @@
 #include "dijkstra.h"
 #include "bfs.h"
 #include "error.h"
+#include "list.h"
 
+#ifndef TEST
+#define TEST 0
+#endif
 
 pq_t init(int size){
     pq_t pq = malloc(sizeof(pq));
@@ -164,7 +168,7 @@ void dijkstra(int src, graph_t graph, int tryb){
             int k = j;
             while(prew[prew[k]] != -1){
                 
-                printf("%d - ", prew[k]);
+                printf("%d <- ", prew[k]);
                 k = prew[k];
             }
             fprintf(stdout,"%d  Długość drogi: %lf\n",src, dist[j]);
@@ -175,8 +179,10 @@ void dijkstra(int src, graph_t graph, int tryb){
     }
     else if(tryb == 2){
         for(int j = 0; j<size; j++){
-            printf("Węzeł: %d, Długość drogi: %lf", j, dist[j]);
+            printf("Węzeł: %d, Długość drogi: %lf\n", j, dist[j]);
         }
     }
+    if (!TEST)
+        freeGraph(graph);
 }
 
