@@ -7,7 +7,7 @@
 #include "gen.h"
 #include "error.h"
 #include "bfs.h"
-#include "pq.h"
+#include "dijkstra.h"
 
 #define FILE_LEN 30
 

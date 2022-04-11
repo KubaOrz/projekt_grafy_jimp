@@ -1,10 +1,8 @@
-CC=gcc
+all: main.c files.c list.c bfs.c error.c gen.c dijkstra.c
+	$(CC) -o graf main.c files.c list.c bfs.c error.c gen.c dijkstra.c
 
-all: main.c files.c list.c bfs.c error.c gen.c pq.c
-	$(CC) -o graf main.c files.c list.c bfs.c error.c gen.c pq.c
-
-test: maintest.c files.c list.c bfs.c error.c fifo.c gen.c pq.c
-	$(CC) -o test maintest.c files.c list.c bfs.c error.c fifo.c gen.c pq.c
+test: maintest.c files.c list.c bfs.c error.c gen.c dijkstra.c
+	$(CC) -o test maintest.c files.c list.c bfs.c error.c gen.c dijkstra.c
 
 debug: main.c files.c list.c bfs.c error.c gen.c
 	$(CC) -o debug main.c files.c list.c bfs.c error.c gen.c -ggdb

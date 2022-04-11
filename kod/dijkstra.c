@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <float.h>
-#include "pq.h"
+#include "dijkstra.h"
 #include "bfs.h"
 #include "error.h"
 
@@ -118,8 +118,7 @@ int isInPQ(pq_t pq, int val){
     return 0;
 }
 
-void dijkstra(int src, graph_t graph){
-    printf("Fakrtyczne odpalenie dijkstry");
+void dijkstra(int src, graph_t graph, int tryb){
     int size = graph->nc * graph->nr;
     double *dist = malloc(sizeof(*dist)*size);
     int *prew = malloc(sizeof(*prew)* size); //talbica poprzednikówa
@@ -155,20 +154,29 @@ void dijkstra(int src, graph_t graph){
             pCrawl = pCrawl->next;
         }
     }
-    
-    for(int j= 0; j<size; j++){
-        if(j == src){
-                fprintf(stdout,"Węzeł: %d Węzeł źródłowy  Długość drogi: %lf\n",j, dist[j]);
-                continue;
+    if(tryb == 1){
+        for(int j= 0; j<size; j++){
+            if(j == src){
+                    fprintf(stdout,"Węzeł: %d Węzeł źródłowy  Długość drogi: %lf\n",j, dist[j]);
+                    continue;
+                }
+            printf("Węzeł: %d droga: ",j);
+            int k = j;
+            while(prew[prew[k]] != -1){
+                
+                printf("%d - ", prew[k]);
+                k = prew[k];
             }
-        printf("Węzeł: %d droga: ",j);
-        int k = j;
-        while(prew[prew[k]] != -1){
-            
-            printf("%d - ", prew[k]);
-            k = prew[k];
+            fprintf(stdout,"%d  Długość drogi: %lf\n",src, dist[j]);
         }
-        fprintf(stdout,"%d  Długość drogi: %lf\n",src, dist[j]);
     }
-    
+    else if(tryb == 0){
+        ;
+    }
+    else if(tryb == 2){
+        for(int j = 0; j<size; j++){
+            printf("Węzeł: %d, Długość drogi: %lf", j, dist[j]);
+        }
+    }
 }
+

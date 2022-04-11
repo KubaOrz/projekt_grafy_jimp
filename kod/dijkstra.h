@@ -1,5 +1,5 @@
-#ifndef PQ_H
-#define PQ_H
+#ifndef DIJKSTRA_H
+#define DIJKSTRA_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +28,7 @@ int isEmpty(pq_t pq);
 hn_t getMin(pq_t pq);
 void decreseKey(pq_t pq, int val, double weigth); //ciekawe czy da się zrobić żeby bez tego działało
 int isInPQ(pq_t pq, int val);//ciekawe czy da się zrobić żeby bez tego działało
-void dijkstra(int src, graph_t graph);
+void dijkstra(int src, graph_t graph, int tryb);
 
 
 #endif
