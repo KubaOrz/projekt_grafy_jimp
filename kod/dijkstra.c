@@ -129,7 +129,7 @@ void dijkstra(int src, graph_t graph, int tryb){
         pq->pos[i] = i;
         prew[i] = -1;
     }   
-//kłeszczonejbul
+
     add(pq, src, dist[src]);
     pq->pos[src] = src;
     dist[src] = 0;
@@ -142,10 +142,10 @@ void dijkstra(int src, graph_t graph, int tryb){
         pCrawl = graph->al[u]->next;
         while(pCrawl != NULL){
             int v = pCrawl->node;
-            /*if(pCrawl->w<0){
-                fprintf(stderr,"INPUT_FORMAT_ERROR");
+            if(pCrawl->w<0){
+                fprintf(stderr,"INPUT_FORMAT_ERROR\n\n");
                 exit(INPUT_FORMAT_ERROR);
-            }*/
+            }
             if(isInPQ(pq,v) && dist[u] != DBL_MAX && pCrawl->w + dist[u] < dist[v]){
                 dist[v] = dist[u] + pCrawl->w;
                 decreseKey(pq, v, dist[v]);

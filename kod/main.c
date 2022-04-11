@@ -49,7 +49,7 @@ int main(int argc, char **argv){
             // Tu odpalimy read i dijkstrę
             printf("Odpalam dijkstrę\n");
             graph_t graph = read(filename);
-            dijkstra(snode, graph);
+            dijkstra(snode, graph, 0);
             return 0;
         }
 

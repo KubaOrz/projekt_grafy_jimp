@@ -10,8 +10,8 @@
 void testDijsktra(char *path){
     clock_t p = clock();
     graph_t graph = read(path);
-    clock_t start = clock();
     int size = graph->nc*graph->nr;
+    clock_t start = clock();
     dijkstra(1, graph, 0);
     clock_t end = clock();
     double time = (double)(end-start)/CLOCKS_PER_SEC;
@@ -39,16 +39,19 @@ int main(int argc, char ** argv) {
     printf("Test BFS 4 OK\n\n");
     */
     //test czasu Dijkstry 1
-    testDijsktra("../testy/10000w");
-
-    //test czasu Dijkstry 2
     testDijsktra("../testy/100w");
 
+    //test czasu Dijkstry 2
+    testDijsktra("../testy/10000w");
+
     //test czasu Dijkstry 3
-    testDijsktra("../testy/100000w");
+    testDijsktra("../testy/10000w2");
     
     //test czasu Dijkstry 4
-    testDijsktra("../testy/100000w2");
+    testDijsktra("../testy/100000w");
+
+    //test czasu Dijkstry 5
+    testDijsktra("../testy/10000w3");
     
     
     return 0;
