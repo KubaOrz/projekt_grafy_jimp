@@ -48,7 +48,7 @@ int main(int argc, char ** argv) {
     testDijsktra("../testy/10000w2");
     
     //test czasu Dijkstry 4
-    //testDijsktra("../testy/100000w");
+    testDijsktra("../testy/100000w");
 
     //test czasu Dijkstry 5
     testDijsktra("../testy/10000w3");

@@ -11,7 +11,7 @@
 #endif
 
 pq_t init(int size){
-    pq_t pq = malloc(sizeof(pq));
+    pq_t pq;
     pq->q = malloc(sizeof(pq->q)* size);
     pq->pos = malloc(sizeof(pq->pos)* size);
     pq->s = size;
@@ -20,18 +20,15 @@ pq_t init(int size){
 }
 
 void swap(hn_t *a, hn_t *b){
-    hn_t tmp = malloc(sizeof(tmp));
+    hn_t tmp;
     tmp = *b;
     *b = *a;
     *a = tmp;
 }
 
 void heapify(pq_t pq, int i){
-    if(pq->n == 1){
-        ;
-    }
-    else{
-        int smallest = i;
+    for(int j = 0; j<pq->n; j++){
+        int smallest = i; // hyc dp poprawy
         int l = 2*i + 1;
         int r = 2*i + 2;
         if(l<pq->n && pq->q[l]->weigth < pq->q[smallest]->weigth){
@@ -44,10 +41,13 @@ void heapify(pq_t pq, int i){
             pq->pos[pq->q[smallest]->val] = i;
             pq->pos[pq->q[i]->val] = smallest;
             swap(&pq->q[i], &pq->q[smallest]);
-            heapify(pq, smallest);
+        }
+        else{
+            return;
         }
     }
 }
+
 
 void add(pq_t pq, int val, double weigth){
     hn_t node = malloc(sizeof(node));
@@ -60,9 +60,7 @@ void add(pq_t pq, int val, double weigth){
     else{
         pq->q[pq->n] = node;
         pq->n += 1;
-        for(int i = pq->n/2 -1 ; i>=0; i--){
-            heapify(pq,i);
-        }
+        heapify(pq,pq->n); //też chyba do poprawy
     }
 }
 
@@ -94,8 +92,8 @@ hn_t getMin(pq_t pq){
     if (isEmpty(pq)){
         return NULL;
     }
-    hn_t root = malloc(sizeof(root));
-    hn_t last = malloc(sizeof(last));
+    hn_t root;
+    hn_t last;
     root = pq->q[0];
     last = pq->q[pq->n - 1];
     pq->q[0] = last;
