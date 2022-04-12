@@ -1,13 +1,11 @@
-CC=gcc
+all: main.c files.c list.c bfs.c error.c gen.c dijkstra.c
+	$(CC) -o graf main.c files.c list.c bfs.c error.c gen.c dijkstra.c
 
-test: main.c files.c list.c bfs.c error.c fifo.c gen.c
-	$(CC) -o test main.c files.c list.c bfs.c error.c fifo.c gen.c
+test: maintest.c files.c list.c bfs.c error.c gen.c dijkstra.c
+	$(CC) -o test maintest.c files.c list.c bfs.c error.c gen.c dijkstra.c -DTEST=1 -ggdb
 
-debug: main.c files.c list.c bfs.c error.c fifo.c gen.c
-	$(CC) -o debug main.c files.c list.c bfs.c error.c fifo.c gen.c -ggdb
+debug: main.c files.c list.c bfs.c error.c gen.c dijkstra.c
+	$(CC) -o debug main.c files.c list.c bfs.c error.c gen.c dijkstra.c -ggdb
 
-readtest: mainreadtest.c files.c list.c
-	$(CC) -o readtest mainreadtest.c files.c list.c
-	
-pqtest: pqmain.c pq.c bfs.c fifo.c list.c
-	$(CC) -o pqtest pqmain.c pq.c bfs.c fifo.c list.c
+clean:
+	rm graf debug test readtest pqtest bfs

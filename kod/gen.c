@@ -6,7 +6,7 @@
 #include "gen.h"
 #include "error.h"
 
-void generate (char *filename, int rows, int cols, double from, double to) {
+void generate (char *filename, int rows, int cols, double from, double to, int density) {
     srand(time(NULL));
 
     FILE *out;
@@ -34,14 +34,14 @@ void generate (char *filename, int rows, int cols, double from, double to) {
                 edgeCount++;
             }
 
-            if (rand() % 4 > 1) {
+            if (rand() % 4 > density) {
                 leftEdge.exists = 1;
                 leftEdge.value = from + (double)rand() / RAND_MAX * (to - from);
             }
             else
                 leftEdge.exists = 0;
 
-            if (rand() % 4 > 1) {
+            if (rand() % 4 > density) {
                 topEdges[j].exists = 1;
                 topEdges[j].value = from + (double)rand() / RAND_MAX * (to - from);
             }
@@ -59,4 +59,5 @@ void generate (char *filename, int rows, int cols, double from, double to) {
             fprintf(out, "\n");
         }
     }
+    free(topEdges);
 }
