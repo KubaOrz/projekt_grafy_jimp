@@ -67,7 +67,7 @@ int main(int argc, char **argv){
             int rows = atoi(argv[3]);
             int cols = atoi(argv[4]);
             // Tu odpalimy generację
-            generate(filename, rows, cols, 0, 1, HIGH);
+            generate(filename, rows, cols, 0, 1, ALL);
             return 0;
         }
         else if (strcmp(argv[2], flags[0]) == 0) {

@@ -14,7 +14,7 @@ typedef struct queue {
     struct queue *next;
 } *queue_t;
 
-void pushQ(queue_t head, int node);
+queue_t pushQ(queue_t head, int node);
 
 int first(queue_t head);
 

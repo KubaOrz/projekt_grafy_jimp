@@ -25,7 +25,7 @@ graph_t read(char *filename){
     double weight;
 	char buff[8192];
     fgets( buff, 8192, fp );
-    for(int i = 0; i < c*w +1 ; i++){
+    for(int i = 0; i < c*w ; i++){
 				fgets( buff, 8192, fp );
 				int buffPtr = 0;
                 int tmp = 0;

@@ -33,6 +33,6 @@ void freeGraph(graph_t graph) {
             current = next;
         }
     }
+    free(graph -> al);
     free(graph);
 }
-
