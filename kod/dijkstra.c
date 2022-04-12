@@ -11,7 +11,7 @@
 #endif
 
 pq_t init(int size){
-    pq_t pq;
+    pq_t pq = malloc(sizeof *pq);
     pq->q = malloc(sizeof(pq->q)* size);
     pq->pos = malloc(sizeof(pq->pos)* size);
     pq->s = size;
@@ -27,8 +27,8 @@ void swap(hn_t *a, hn_t *b){
 }
 
 void heapify(pq_t pq, int i){
-    for(int j = 0; j<pq->n; j++){
-        int smallest = i; // hyc dp poprawy
+        int smallest = i;
+    while(1){
         int l = 2*i + 1;
         int r = 2*i + 2;
         if(l<pq->n && pq->q[l]->weigth < pq->q[smallest]->weigth){
@@ -41,6 +41,7 @@ void heapify(pq_t pq, int i){
             pq->pos[pq->q[smallest]->val] = i;
             pq->pos[pq->q[i]->val] = smallest;
             swap(&pq->q[i], &pq->q[smallest]);
+            i = smallest;
         }
         else{
             return;
@@ -60,7 +61,7 @@ void add(pq_t pq, int val, double weigth){
     else{
         pq->q[pq->n] = node;
         pq->n += 1;
-        heapify(pq,pq->n); //też chyba do poprawy
+        heapify(pq,pq->n);
     }
 }
 
@@ -140,7 +141,7 @@ void dijkstra(int src, graph_t graph, int tryb){
     while(!isEmpty(pq)){
         hn_t hn = getMin(pq);
         int u = hn->val;
-        list_t pCrawl = malloc(sizeof *pCrawl);
+        list_t pCrawl;
         pCrawl = graph->al[u]->next;
         while(pCrawl != NULL){
             int v = pCrawl->node;
@@ -161,11 +162,14 @@ void dijkstra(int src, graph_t graph, int tryb){
             if(j == src){
                     fprintf(stdout,"Węzeł: %d Węzeł źródłowy  Długość drogi: %lf\n",j, dist[j]);
                     continue;
-                }
+            }
             printf("Węzeł: %d droga: ",j);
             int k = j;
+            if(prew[k] == -1){
+                    printf("Brak dorgi do wierchołka\n");
+                    continue;;
+            }
             while(prew[prew[k]] != -1){
-                
                 printf("%d <- ", prew[k]);
                 k = prew[k];
             }
@@ -173,14 +177,23 @@ void dijkstra(int src, graph_t graph, int tryb){
         }
     }
     else if(tryb == 0){
-        ;
+        return;
     }
     else if(tryb == 2){
         for(int j = 0; j<size; j++){
+            if(j == src){
+                    fprintf(stdout,"Węzeł: %d Węzeł źródłowy  Długość drogi: %lf\n",j, dist[j]);
+                    continue;
+            }
+            //if(prew[j] == -1){
+                    //printf("Węzeł: %d, Brak dorgi do wierchołka\n",j);
+                    //continue;;
+            //}
             printf("Węzeł: %d, Długość drogi: %lf\n", j, dist[j]);
         }
     }
     if (!TEST)
         freeGraph(graph);
+        
 }
 
