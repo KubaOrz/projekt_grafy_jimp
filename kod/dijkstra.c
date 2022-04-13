@@ -151,7 +151,7 @@ void dijkstra(int src, graph_t graph, int tryb){
     pq->n = size;
     list_t pCrawl;
     hn_t hn;
-    int u;
+    int u; 
     while(!isEmpty(pq)){
         hn = getMin(pq);
         u = hn->val;

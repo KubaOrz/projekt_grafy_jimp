@@ -39,16 +39,16 @@ int main(int argc, char ** argv) {
     printf("Test BFS 4 OK\n\n");
     
     //test czasu Dijkstry 1
-    testDijsktra("../testy/100w");
-
-    //test czasu Dijkstry 2
     testDijsktra("../testy/10000w");
 
-    //test czasu Dijkstry 3
+    //test czasu Dijkstry 2
     testDijsktra("../testy/10000w2");
+
+    //test czasu Dijkstry 3
+    testDijsktra("../testy/100000w");
     
     //test czasu Dijkstry 4
-    testDijsktra("../testy/100000w");
+    testDijsktra("../testy/1000000w");
 
     //test czasu Dijkstry 5
     testDijsktra("../testy/10000w3");

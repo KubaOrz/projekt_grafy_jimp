@@ -41,7 +41,7 @@ graph_t read(char *filename){
 					buffPtr += tmp;
 				}
                 //printf("\n");
-                g->al[i] = p;
+                g->al[i] = p; 
 		}
     return g;
 }
