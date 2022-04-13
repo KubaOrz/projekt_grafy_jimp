@@ -29,7 +29,12 @@ graph_t read(char *filename){
 				fgets( buff, 8192, fp );
 				int buffPtr = 0;
                 int tmp = 0;
-                list_t p = malloc(sizeof *p);
+                list_t p;
+                if(sscanf( buff+buffPtr, "%d :%lf%n", &node, &weight, &tmp )==2){
+                    p = initlist(node,weight);
+                    buffPtr += tmp;
+                }
+                
 				while( sscanf( buff+buffPtr, "%d :%lf%n", &node, &weight, &tmp ) == 2 ) {
                     //printf("%d :%lf\n", node, weight);
 					push(p,node,weight);  // push( g->al[i], node weight );

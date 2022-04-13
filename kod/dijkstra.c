@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <float.h>
 #include "dijkstra.h"
-#include "bfs.h"
 #include "error.h"
 #include "list.h"
 
@@ -12,8 +11,8 @@
 
 pq_t init(int size){
     pq_t pq = malloc(sizeof *pq);
-    pq->q = malloc(sizeof(pq->q)* size);
-    pq->pos = malloc(sizeof(pq->pos)* size);
+    pq->q = malloc(sizeof pq->q * size);
+    pq->pos = malloc(sizeof pq->pos * size);
     pq->s = size;
     pq->n = 0;
     return pq;
@@ -51,7 +50,7 @@ void heapify(pq_t pq, int i){
 
 
 void add(pq_t pq, int val, double weigth){
-    hn_t node = malloc(sizeof(node));
+    hn_t node = malloc(sizeof *node);
     node->val = val;
     node->weigth = weigth;
     if(pq->n == 0){
@@ -121,6 +120,18 @@ int isInPQ(pq_t pq, int val){
     return 0;
 }
 
+void freePQ(pq_t pq){
+    /*
+    for(int k = 0 ; k < pq->s ; k++){
+        free(pq->q[k]);
+    }
+    */
+    free(pq->q);
+    free(pq->pos);
+    free(pq);
+}
+
+
 void dijkstra(int src, graph_t graph, int tryb){
     int size = graph->nc * graph->nr;
     double *dist = malloc(sizeof(*dist)*size);
@@ -138,11 +149,13 @@ void dijkstra(int src, graph_t graph, int tryb){
     dist[src] = 0;
     decreseKey(pq, src, dist[src]);
     pq->n = size;
+    list_t pCrawl;
+    hn_t hn;
+    int u;
     while(!isEmpty(pq)){
-        hn_t hn = getMin(pq);
-        int u = hn->val;
-        list_t pCrawl;
-        pCrawl = graph->al[u]->next;
+        hn = getMin(pq);
+        u = hn->val;
+        pCrawl = graph->al[u];
         while(pCrawl != NULL){
             int v = pCrawl->node;
             if(pCrawl->w<0){
@@ -157,6 +170,8 @@ void dijkstra(int src, graph_t graph, int tryb){
             pCrawl = pCrawl->next;
         }
     }
+    freePQ(pq);
+    freeGraph(graph);
     if(tryb == 1){
         for(int j= 0; j<size; j++){
             if(j == src){
@@ -176,18 +191,7 @@ void dijkstra(int src, graph_t graph, int tryb){
             fprintf(stdout,"%d  Długość drogi: %lf\n",src, dist[j]);
         }
     }
-    else if(tryb == 0){
-        freeGraph(graph);
-        for(int k = 0; k <= size; k++){
-            free(pq->q[k]);
-        }
-        free(pq->q);
-        free(pq->pos);
-        free(pq);
-        free(prew);
-        free(dist);
-        return;
-    }
+
     else if(tryb == 2){
         for(int j = 0; j<size; j++){
             if(j == src){
@@ -201,6 +205,9 @@ void dijkstra(int src, graph_t graph, int tryb){
             printf("Węzeł: %d, Długość drogi: %lf\n", j, dist[j]);
         }
     }
+    free(prew);
+    free(dist);
+    return;
 
         
 }

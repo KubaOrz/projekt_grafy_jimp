@@ -16,6 +16,7 @@ typedef struct {
 	list_t *al;
 } *graph_t;
 
+list_t initlist(int node, double w);
 void push(list_t head, int node, double w);
 void printlist(list_t head);
 void freeGraph(graph_t graph);

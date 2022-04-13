@@ -2,15 +2,24 @@
 #include <stdlib.h>
 #include "list.h"
 
+list_t initlist(int node, double w){
+    list_t head = malloc(sizeof *head);
+    head->node=node;
+    head->w = w;
+    head->next = NULL;
+}
+
 void push(list_t head, int node, double w){
+    if(head == NULL){
+        head->node = node;
+        head->w = w;
+        head->next = NULL;
+        return;
+    }
     list_t new = malloc(sizeof *new);
     new->node = node;
     new->next = NULL;
     new->w = w;
-    if(head == NULL){
-        head = new;
-        return;
-    }
     list_t curent = head;
     while(curent->next != NULL){
         curent = curent->next;

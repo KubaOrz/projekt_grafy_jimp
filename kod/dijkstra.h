@@ -28,6 +28,7 @@ int isEmpty(pq_t pq);
 hn_t getMin(pq_t pq);
 void decreseKey(pq_t pq, int val, double weigth); //ciekawe czy da się zrobić żeby bez tego działało
 int isInPQ(pq_t pq, int val);//ciekawe czy da się zrobić żeby bez tego działało
+void freePQ(pq_t pq);
 void dijkstra(int src, graph_t graph, int tryb);
 
 
