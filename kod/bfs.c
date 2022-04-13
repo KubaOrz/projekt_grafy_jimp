@@ -11,45 +11,36 @@
 int bfs(graph_t graph, int start) {
     int u, v;
     int size = graph -> nc * graph -> nr;
-    color_t *results = malloc(size * sizeof *results);
-    queue_t head=NULL; /*= malloc(sizeof *head);
+    int *results = calloc(size, sizeof *results);
+    queue_t head = NULL;
 
-    head -> node = start;
-    head -> next = NULL;*/
-
-    for (int i = 0; i < size; i++) {
-        results[i].color = 0;
-    }
-    results[start].color = 1; // 0 to biały, 1 to szary, a 2 to czarny
+    results[start] = 1; // 0 to biały, 1 to szary, a 2 to czarny
     head = pushQ(head, start);
     while(head != NULL) {
         u = first(head);
         head = pop(head);
         list_t it = graph -> al[u];
         while (it != NULL) {
-            if (results[it -> node].color == 0) {
-                results[it -> node].color = 1;
+            if (results[it -> node] == 0) {
+                results[it -> node] = 1;
                 head = pushQ(head, it -> node);
             }
             it = it -> next;
         }
-        results[u].color = 2;
+        results[u] = 2;
     }
-
     if (!TEST)
         freeGraph(graph);
 
     for (int i = 0; i < size; i++) {
-        if (results[i].color != 2) {
+        if (results[i] != 2) {
             if (!TEST)
                 free(results);
-                //free(head);
             return 0;
         }
     }
     if (!TEST)
         free(results);
-        //free(head);
     return 1;
 }
 
@@ -64,14 +55,6 @@ queue_t pushQ(queue_t head, int node) {
         iter = iter -> next;
     iter->next= new;
     return head;
-    /*queue_t new = head;
-    while (head != NULL) {
-        head = head -> next;
-    }
-    head = malloc(sizeof(queue_t));
-    head -> node = node;
-    head -> next = NULL;
-    return new;*/
 }
 
 int first(queue_t head) {

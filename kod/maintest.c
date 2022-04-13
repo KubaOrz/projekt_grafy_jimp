@@ -21,22 +21,22 @@ void testDijsktra(char *path){
 
 
 int main(int argc, char ** argv) {
-    
+    printf("chuj\n");
     //test BfS 1
     assert(bfs(read("../testy/g1.txt"), 0) == 0);
-    printf("Test BFS 1 OK\n\n");
+    printf("Test BFS 1 OK (niespójny)\n\n");
 
     //test BFS 2
     assert(bfs(read("../testy/g2.txt"), 0) == 0);
-    printf("Test BFS 2 OK\n\n");
+    printf("Test BFS 2 OK (niespójny)\n\n");
 
     //test BFS 3
     assert(bfs(read("../testy/g3.txt"), 0));
-    printf("Test BFS 3 OK\n\n");
+    printf("Test BFS 3 OK (spójny)\n\n");
 
     //test BFS 4
     assert(bfs(read("../testy/g4.txt"), 0));
-    printf("Test BFS 4 OK\n\n");
+    printf("Test BFS 4 OK (spójny)\n\n");
     
     //test czasu Dijkstry 1
     testDijsktra("../testy/10000w");

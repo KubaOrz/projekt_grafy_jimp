@@ -5,10 +5,6 @@
 #include "error.h"
 #include "list.h"
 
-#ifndef TEST
-#define TEST 0
-#endif
-
 pq_t init(int size){
     pq_t pq = malloc(sizeof *pq);
     pq->q = malloc(sizeof pq->q * size);
@@ -124,8 +120,8 @@ void freePQ(pq_t pq){
     /*
     for(int k = 0 ; k < pq->s ; k++){
         free(pq->q[k]);
-    }
-    */
+    }*/
+    
     free(pq->q);
     free(pq->pos);
     free(pq);
@@ -181,7 +177,7 @@ void dijkstra(int src, graph_t graph, int tryb){
             printf("Węzeł: %d droga: ",j);
             int k = j;
             if(prew[k] == -1){
-                    printf("Brak dorgi do wierchołka\n");
+                    printf("Brak drogi do wierchołka\n");
                     continue;;
             }
             while(prew[prew[k]] != -1){

@@ -3,12 +3,6 @@
 
 #include "list.h"
 
-typedef struct color {
-    int color;
-    int distance;
-    int parent;
-} color_t;
-
 typedef struct queue {
     int node;
     struct queue *next;
