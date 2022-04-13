@@ -3,14 +3,19 @@
 #include "list.h"
 
 void push(list_t head, int node, double w){
+    list_t new = malloc(sizeof *new);
+    new->node = node;
+    new->next = NULL;
+    new->w = w;
+    if(head == NULL){
+        head = new;
+        return;
+    }
     list_t curent = head;
     while(curent->next != NULL){
         curent = curent->next;
     }
-    curent->next = malloc(sizeof(list_t));
-    curent->next->node = node;
-    curent->next->w = w;
-    curent->next->next = NULL;
+    curent->next = new;
 }
 
 

@@ -177,6 +177,15 @@ void dijkstra(int src, graph_t graph, int tryb){
         }
     }
     else if(tryb == 0){
+        freeGraph(graph);
+        for(int k = 0; k <= size; k++){
+            free(pq->q[k]);
+        }
+        free(pq->q);
+        free(pq->pos);
+        free(pq);
+        free(prew);
+        free(dist);
         return;
     }
     else if(tryb == 2){
@@ -185,15 +194,14 @@ void dijkstra(int src, graph_t graph, int tryb){
                     fprintf(stdout,"Węzeł: %d Węzeł źródłowy  Długość drogi: %lf\n",j, dist[j]);
                     continue;
             }
-            //if(prew[j] == -1){
-                    //printf("Węzeł: %d, Brak dorgi do wierchołka\n",j);
-                    //continue;;
-            //}
+            if(prew[j] == -1){
+                    printf("Węzeł: %d, Brak dorgi do wierchołka\n",j);
+                    continue;;
+            }
             printf("Węzeł: %d, Długość drogi: %lf\n", j, dist[j]);
         }
     }
-    if (!TEST)
-        freeGraph(graph);
+
         
 }
 
